@@ -10,11 +10,7 @@ Replace the Project Title
 Later work
 
 ### Files used
-<<<<<<< HEAD
 updated again
-=======
-no files
->>>>>>> refactoring
 
 ### Credits
 None

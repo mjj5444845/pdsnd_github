@@ -1,10 +1,4 @@
-<<<<<<< HEAD
 # bikeshare project
-=======
-# add comments
-# add comments 2
-# add comments 3
->>>>>>> refactoring
 
 import time
 import pandas as pd
