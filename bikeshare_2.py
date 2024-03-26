@@ -149,22 +149,30 @@ def user_stats(df):
     for key, value in user_type_dict.items():
         print(f'For User Type, the count of {key} is {value}.')
 
-    # Display counts of gender
-    gender_dict = df['Gender'].value_counts().to_dict()
+    if 'Gender' in df.columns:
+        # Display counts of gender
+        gender_dict = df['Gender'].value_counts().to_dict()
+        
+        for key, value in gender_dict.items():
+            print(f'For Gender, the count of {key} is {value}.')
+    else:
+        print('Gender stats cannot be calculated because Gender does not appear in the dataframe')
+
+
+    if 'Birth Year' in df.columns:
+        # Display earliest, most recent, and most common year of birth
+        earliest_year = np.min(df['Birth Year'])
+        print(f'The earliest year of birth is {earliest_year}.')
+
+        most_recent_year = np.max(df['Birth Year'])
+        print(f'The most recent year of birth is {most_recent_year}.')
+
+        most_common_year = df['Birth Year'].mode()[0]
+        print(f'The most common year year of birth is {most_common_year}.')
+    else:
+        print('Birth Year stats cannot be calculated because Birth Year does not appear in the dataframe')
     
-    for key, value in gender_dict.items():
-        print(f'For Gender, the count of {key} is {value}.')
 
-
-    # Display earliest, most recent, and most common year of birth
-    earliest_year = np.min(df['Birth Year'])
-    print(f'The earliest year of birth is {earliest_year}.')
-
-    most_recent_year = np.max(df['Birth Year'])
-    print(f'The most recent year of birth is {most_recent_year}.')
-
-    most_common_year = df['Birth Year'].mode()[0]
-    print(f'The most common year year of birth is {most_common_year}.')
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
@@ -179,10 +187,28 @@ def main():
         station_stats(df)
         trip_duration_stats(df)
         user_stats(df)
+        display_data(df)
 
         restart = input('\nWould you like to restart? Enter yes or no.\n')
         if restart.lower() != 'yes':
             break
+
+
+def display_data(df):
+    """Displays first 5 rows of data in dataframe."""
+    display = input('\nDo you want to see the first 5 rows of data?\n')
+    if display.lower() != 'yes':
+        return None
+    else:
+        start_loc = 0
+        print(df.iloc[start_loc: start_loc+5])
+        while True:
+            display = input('\nDo you want to see the next 5 rows of data?\n')
+            if display.lower() != 'no':
+                start_loc = start_loc + 5
+                print(df.iloc[start_loc: start_loc+5])
+            else:
+                break
 
 
 if __name__ == "__main__":
